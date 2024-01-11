@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dashboardstyle.css}">
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script th:inline="javascript" type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            /*<![CDATA[*/
+            var chartDataList = /*[[${chartDataList}]]*/null;
+            /*]]>*/
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Buy');
+            data.addColumn('number', 'Sell');
+            //data.addColumn('number', 'Profit');
+            data.addColumn('number', 'Solar');
+            data.addColumn('number', 'CalcCons');
+
+            for (var i = 0; i < chartDataList.length; i++) {
+                var rowData = [];
+                rowData.push(chartDataList[i].date);
+                rowData.push(chartDataList[i].t180);
+                rowData.push(chartDataList[i].t280);
+                // rowData.push(chartDataList[i].headOver);
+                rowData.push(chartDataList[i].solar);
+                rowData.push(chartDataList[i].calculatedConsumption);
+                data.addRow(rowData);
+            }
+
+            var options = {
+                chart: {
+                    title: 'Electricity onsumption per month [kWh]',
+                    subtitle: 'Buy, sell, solar, calc',
+                },
+                titleTextStyle: {
+                    color: 'white'
+                },
+                bars: 'vertical',
+                vAxis: { format: 'decimal' },
+                vAxis: { textStyle: { fontSize: 11, color: 'white' } },
+                hAxis: { textStyle: { fontSize: 11, color: 'white' } },
+                chartArea: { backgroundColor: 'transparent' },
+                bar: { groupWidth: '85%' },
+                legend: { position: 'none' },
+                height: 300,
+                width: 480,
+                fontSize: 12,
+                colors: ['Crimson', 'ForestGreen', 'Gold', 'DodgerBlue'],
+
+                backgroundColor: 'transparent'
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        }
+
+    </script>
+
+    <script th:inline="javascript" type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            /*<![CDATA[*/
+            var gasChartDataList = /*[[${gasChartDataList}]]*/null;
+            /*]]>*/
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Gas');
+            for (var i = 0; i < gasChartDataList.length; i++) {
+                var rowData = [];
+                rowData.push(gasChartDataList[i].date);
+                rowData.push(gasChartDataList[i].gas);
+                data.addRow(rowData);
+            }
+            var options = {
+                chart: {
+                    title: 'Gas consumption per month [m3]',
+                    subtitle: 'historical data',
+
+                },
+                titleTextStyle: {
+                    color: 'white'
+                },
+                bars: 'vertical',
+                vAxis: { format: 'decimal' },
+                vAxis: { textStyle: { fontSize: 11, color: 'white' } },
+                hAxis: { textStyle: { fontSize: 11, color: 'white' } },
+                chartArea: { backgroundColor: 'transparent' },
+                bar: { groupWidth: '85%' },
+                legend: { position: 'none' },
+                height: 300,
+                width: 480,
+                fontSize: 12,
+                colors: ['Orange'],
+                backgroundColor: 'transparent'
+
+            };
+            var chart = new google.charts.Bar(document.getElementById('gas_chart_div'));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <script th:inline="javascript" type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            /*<![CDATA[*/
+            var chartDataList = /*[[${gasDifChartDataList}]]*/null;
+            /*]]>*/
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Current year');
+            data.addColumn('number', 'Previous year');
+            data.addColumn('number', 'Limit');
+            for (var i = 0; i < chartDataList.length; i++) {
+                var rowData = [];
+                rowData.push(chartDataList[i].month);
+                rowData.push(chartDataList[i].gasDataFirst);
+                rowData.push(chartDataList[i].gasDataSecond);
+                rowData.push(1729);
+                data.addRow(rowData);
+            }
+            var options = {
+                title: 'Gas Consumption month/month',
+                curveType: 'function',
+                legend: {
+                    position: 'bottom',
+                    textStyle: { color: 'white' }
+                },
+                height: 330,
+                width: 590,
+                vAxis: { textStyle: { fontSize: 11, color: 'white' } },
+                hAxis: { textStyle: { fontSize: 11, color: 'white' } },
+                backgroundColor: 'transparent',
+                titleTextStyle: {
+                    color: 'white'
+                },
+                colors: ['Aqua', 'DarkCyan', 'red'],
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('gas_diff_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script th:inline="javascript" type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            /*<![CDATA[*/
+            var chartDataList = /*[[${chartDataList}]]*/null;
+            /*]]>*/
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Solar overhead');
+            for (var i = 0; i < chartDataList.length; i++) {
+                var rowData = [];
+                rowData.push(chartDataList[i].date);
+                rowData.push(chartDataList[i].headOver);
+                data.addRow(rowData);
+            }
+            var options = {
+                title: 'Solar overhead',
+                curveType: 'none',
+                legend: {
+                    position: 'bottom',
+                    textStyle: { color: 'white' }
+                },
+                height: 330,
+                width: 590,
+                vAxis: { textStyle: { fontSize: 11, color: 'gold' } },
+                hAxis: { textStyle: { fontSize: 11, color: 'gold' } },
+                backgroundColor: 'transparent',
+                titleTextStyle: {
+                    color: 'white'
+                },
+                colors: ['Gold'],
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('solar_diff_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+
+
+</head>
+
+<body class="body-dash">
+
+
+    <div layout:fragment="subcontent">
+        <div class="wrapper-dash">
+            <div class="col col-6 column-chart" id="chart_div"></div>
+            <div class="col col-6 gas-column-chart" id="solar_diff_chart"></div>
+        </div>
+        <div class="wrapper-dash">
+            <div class="col col-6 column-chart" id="gas_chart_div"></div>
+            <div class="col col-6 gas-column-chart" id="gas_diff_chart"></div>
+        </div>
+        </div>
+    </div>
+</body>
+
+</html>

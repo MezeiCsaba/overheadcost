@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
+<head>
+    <meta charset="utf-8">
+    <title>New Gas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addnewgasstyle.css}">
+</head>
+
+<body>
+    <div class="wrapper" layout:fragment="subcontent">
+        <main>
+            <hr class="hr-text" data-content="Felhasznaloi havi leolvasas">
+            <form class="elect-form" th:object="${newGas}" th:action="@{/addnewgasdata}" method="POST">
+                <div class="gasinfo">
+                    <p th:text="${lastGas}"> </p>
+                </div>
+                <div class="new-elec-input-div">
+                    <div class="new-elec-input">
+                        <label for="new-month-gas"><span>Ora allas (m3)</span></label>
+                        <input type="number" id="new-month-gas" th:field="*{gas}" th:value="${newGas.gas}">
+                    </div>
+                    <div class="new-elec-input">
+                        <label for="new-date"><span>Leolvasas datuma</span></label>
+                        <input type="date" required="required" id="new-date" th:field="*{date}"
+                            th:value="${newGas.date}">
+                    </div>
+                    <button class="submit-button" type="submit">Save client data</button>
+                </div>
+
+            </form>
+
+            <hr class="hr-text" data-content="Szolgaltatoi eves leolvasas">
+
+            <form class="last-elect-form" th:object="${newLastGas}" th:action="@{/addnewlastgasdata}" method="POST">
+                <div class="gasinfo">
+                    <p th:text="${lastGasRead}"> </p>
+                </div>
+                <div class="new-elec-input-div">
+                    <div class="new-elec-input">
+                        <label for="new-month-gas"><span>Ora allas (m3)</span></label>
+                        <input type="number" id="new-last-month-gas" th:field="*{gas}" th:value="${newLastGas.gas}">
+                    </div>
+
+                    <div class="new-elec-input">
+                        <label for="new-date"><span>Leolvasas datuma</span></label>
+                        <input type="date" required="required" id="new-last-date" th:field="*{date}"
+                            th:value="${newLastGas.date}">
+                    </div>
+                    <button class="submit-button" type="submit">Save provider data</button>
+
+                </div>
+
+
+
+
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>

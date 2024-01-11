@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <title>OverheadCosts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainstyle.css}">
+    <link rel="shortcut icon" th:href="@{/pics/sun-icon.ico}" type="image/x-icon">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav>
+            <ul>
+                <li><a th:href="@{/}" class="icon-home">Dashboard</a></li>
+                <li><a href="/addnewelecdata" class="icon-user">Populate electric data</a></li>
+                <li><a href="/addnewgas" class="icon-mail">Polulate gas data</a></li>
+                <li><a href="/rawdata" class="icon-bell">Raw data</a></li>
+                <li><a href="" class="icon-info">Info</a></li>
+            </ul>
+            <div class="">
+
+                <hr class="hr-text" data-content="Solar">
+                <p class="overhead" th:text="${elecOverHead}"> overhead </p>
+                <hr class="hr-text" data-content="Gas">
+                <p class="overhead overhead-gas" th:text="${gasOverHead[1] - gasOverHead[0]}">gas overhead </p>
+                <hr class="hr-text" data-content="Solved">
+                <p class="overhead overhead-solar" th:text="${elecPercentage}"> Sold/produced </p>
+            </div>
+
+        </nav>
+        <br>
+        <div layout:fragment="subcontent"></div>
+    </div>
+
+</body>
+
+</html>

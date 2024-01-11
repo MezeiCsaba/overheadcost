@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box
+}
+
+html {
+    height: 100%
+}
+
+body {
+    height: 100%;
+    font-family: 'Arial, Helvetica, sans-serif';
+    font-weight: 300;
+    background: linear-gradient(#030736, #090f69);
+    color: #84a6ca;
+    margin: 0px
+}
+
+.wrapper {
+    display: flex;
+    height: 100%;
+    margin: auto;
+}
+
+
+main {
+    flex-basis: auto;
+    width: 600px
+}
+
+div .new-elec-input {
+    border-color: #4680eede;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    background: 'transparent';
+    /* background: #19b18881; */
+    color: #399dd7f5;
+    padding: 5px 25px;
+    margin: 5px auto;
+    width: 80%;
+
+}
+
+.new-elec-input:hover {
+    border-width: 1px;
+    border-color: #69ec1f;
+}
+
+.new-elec-input-div {
+    border-color: #2e7196;
+    border-radius: 20px;
+    border-width: 3px;
+    border-style: solid;
+    background-color: 'transparent';
+    /* background-color: rgba(0, 255, 255, 0.336); */
+    padding: 10px 10px;
+    margin: 10px;
+
+
+
+}
+
+.submit-button {
+    background: #ce8e3ad0;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 15px 15px 5px 15px;
+
+
+}
+
+.submit-button:hover {
+    background: #ef7140;
+}
+
+span {
+    display: inline-block;
+    width: 240px;
+    padding: 1px;
+    margin: 1px;
+}
+
+input {
+    width: 140px;
+}
+
+.hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    opacity: .5;
+
+    &:before {
+        content: '';
+        /* // use the linear-gradient for the fading effect
+      // use a solid background color for a solid bar */
+        background: linear-gradient(to right, transparent, #818078, transparent);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+    }
+
+    &:after {
+        content: attr(data-content);
+        position: relative;
+        display: inline-block;
+        color: black;
+        padding: 1px 1rem;
+        margin: 1rem;
+        line-height: 1.5em;
+        /* // this is really the only tricky part, you need to specify the background color of the container element... */
+        color: #e9cd81;
+        background-color: #060b4f;
+        border-radius: 15px;
+        border-style: solid;
+        border-width: 1px;
+    }
+}
+
+.overhead {
+    padding: 20px 0 0 0;
+    margin: auto;
+    text-align: center;
+    border-color: tomato;
+    border-radius: 100px;
+    border-width: 3px;
+    border-style: solid;
+    width: 75px;
+    height: 75px;
+    font-size: 25px;
+    color: ForestGreen;
+
+}
+
+.overhead.overhead-gas {
+    border-color: orange;
+    color: forestgreen;
+
+}
+
+.overhead.overhead-solar {
+    border-color: ForestGreen;
+    color: gold;
+
+}

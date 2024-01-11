@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box
+}
+
+.body-dash {
+    font-weight: 300;
+    /* background: linear-gradient(#030736, #090f69); */
+    background-size: cover;
+    color: #84a6ca;
+    margin: 0
+}
+
+.wrapper-dash {
+    display: grid;
+   
+    grid-template-columns: repeat(12, 1fr);
+   
+    grid-gap: 5px 5px
+}
+
+.col-6 {
+    grid-column: span 6
+}
+
+
+
+span {
+    display: inline-block;
+    width: 200px;
+    padding: 1px;
+    margin: 1px;
+}
+
+.overhead {
+    padding: 20px 0 0 0  ;
+    margin: auto;
+    text-align: center;
+    border-color: tomato;
+    border-radius: 100px;
+    border-width: 3px;
+    border-style: solid;
+    width: 75px;
+    height: 75px;
+    font-size: 25px;
+    color: ForestGreen;
+
+}
+
+.overhead.overhead-gas {
+    border-color: orange;
+    color: forestgreen;
+
+}
+
+.overhead.overhead-solar {
+    border-color: ForestGreen;
+    color: gold;
+
+}
+
+.column-chart {
+    margin: 15px 0 0 20px;
+    padding: 15px;
+    border-color: #145241;
+    border-radius: 20px;
+    border-width: 3px;
+    border-style: solid;
+    width: 520px;
+    height: 330px;
+    box-shadow: 0 4px 8px 0 rgba(5, 23, 138, 0.738), 0 6px 20px 0 rgba(6, 6, 111, 0.558);
+}
+
+.gas-column-chart{
+    margin: 15px 0 0 10px;
+    padding: 0;
+    border-color: #145241;
+    border-radius: 20px;
+    border-width: 3px;
+    border-style: solid;
+    width: 540px;
+    height: 330px;
+    box-shadow: 0 4px 8px 0 rgba(5, 23, 138, 0.738), 0 6px 20px 0 rgba(6, 6, 111, 0.558);
+
+}
+
+.hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    opacity: .5;
+
+    &:before {
+        content: '';
+        /* // use the linear-gradient for the fading effect
+      // use a solid background color for a solid bar */
+        background: linear-gradient(to right, transparent, #818078, transparent);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+    }
+
+    &:after {
+        content: attr(data-content);
+        position: relative;
+        display: inline-block;
+        color: black;
+        padding: 1px 1rem;
+        margin: 1rem;
+        line-height: 1.5em;
+        /* // this is really the only tricky part, you need to specify the background color of the container element... */
+        color: #e9cd81;
+        background-color: #060b4f;
+        border-radius: 15px;
+        border-style: solid;
+        border-width: 1px;
+    }
+}
