@@ -97,8 +97,10 @@ public class GasService {
         for (int i = 0; i < 12; i++) {
             int fromDateListSize = fromDateList.size();
             int toDateListSize = toDateList.size();
-            int fromDateGas = (i < fromDateListSize) ? fromDateList.get(i).getGas() : fromDateList.get(fromDateListSize-1).getGas();
-            int toDategas = (i < toDateListSize) ? toDateList.get(i).getGas() : toDateList.get(toDateListSize-1).getGas();
+            int fromDateGas = (i < fromDateListSize) ? fromDateList.get(i).getGas()
+                    : fromDateList.get(fromDateListSize - 1).getGas();
+            int toDategas = (i < toDateListSize) ? toDateList.get(i).getGas()
+                    : toDateList.get(toDateListSize - 1).getGas();
             String date = (i < toDateListSize) ? toDateList.get(i).getDate()
                     : (i < fromDateListSize) ? toDateList.get(i).getDate() : "na";
 
@@ -138,7 +140,8 @@ public class GasService {
     }
 
     public void save(GasModel gas) {
-        gasRepository.save(gas);
+        if (gas != null)
+            gasRepository.save(gas);
     }
 
     public List<LocalDate> getAllLocalDateFrom() {

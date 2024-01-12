@@ -31,7 +31,7 @@ public class LastGasReadService {
     }
 
     public void save(LastGasModel gas) {
-        lastGasRepository.save(gas);
+        if (gas!=null) lastGasRepository.save(gas);
     }
 
     public List<LocalDate> getAllLocalDateFrom() {
