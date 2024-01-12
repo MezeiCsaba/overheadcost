@@ -74,7 +74,7 @@ public class MainController {
             var lastElectricityRead = lastElectricityReadService.getLastLastElectricityRead();
             var difference = newElectricity.getT280() - newElectricity.getT180() + lastElectricityRead.getT180()
                     - lastElectricityRead.getT280();
-            newElectricity.setDifference((difference < 0) ? 0 : difference);
+            newElectricity.setDifference(difference);
             electricityService.save(newElectricity);
         }
 
@@ -144,7 +144,7 @@ public class MainController {
         var electricities = electricityService.findAll();
         var lastElectricityRead = lastElectricityReadService.getLastLastElectricityRead();
 
-        List<MonthlyConsumptionStatData> chartDataList = CommonService.getChartData(electricities, lastElectricityRead);
+        List<MonthlyConsumptionStatData> chartDataList = ElectricityService.getChartData(electricities, lastElectricityRead);
         model.addAttribute("chartDataList", chartDataList);
         model.addAttribute("elecOverHead", electricityService.getLastElectricity(LocalDate.now()).getDifference());
         model.addAttribute("elecPercentage", electricityService.getSellPercentage());
