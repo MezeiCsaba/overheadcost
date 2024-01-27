@@ -34,3 +34,7 @@ build/
 overhead_log.log
 overhead_log.log.2024-01-11.0.gz
 .gitignore
+bin/
+*.gz
+overheadcost.jar
+testdb.mv.OLD.db
