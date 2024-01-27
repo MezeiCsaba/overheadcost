@@ -53,8 +53,18 @@ public class MainController {
     public String index(Model model) {
 
         setModel(model);
-
+        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
+        model.addAttribute("chartDataList", electricityService.getChartData(false));
         return "index";
+    }
+
+    @RequestMapping("/info")
+    public String info(Model model) {
+
+        setModel(model);
+        model.addAttribute("gasChartDataList", gasService.getGasChartData(true));
+        model.addAttribute("chartDataList", electricityService.getChartData(true));
+        return "info";
     }
 
     @RequestMapping("/addnewelecdata")
@@ -68,7 +78,7 @@ public class MainController {
     @PostMapping("/addNewElectricityData")
     public String addNewElectricityData(@ModelAttribute Electricity newElectricity, Model model) {
         List<LocalDate> localDateList = electricityService.getAllLocalDateFrom();
-        boolean isExists = CommonService.containsSameMonthYear(localDateList, newElectricity.getActualDate());
+        boolean isExists = CommonService.containsSameMonthYear(localDateList, newElectricity.getDate());
 
         if (!isExists) {
             var lastElectricityRead = lastElectricityReadService.getLastLastElectricityRead();
@@ -79,13 +89,15 @@ public class MainController {
         }
 
         setModel(model);
+        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
+        model.addAttribute("chartDataList", electricityService.getChartData(false));
         return "index";
     }
 
     @PostMapping("/addNewLastElectricityData")
     public String addNewLastElectricityData(@ModelAttribute LastElectricityRead newLastElectricity, Model model) {
         List<LocalDate> localDateList = lastElectricityReadService.getAllLocalDateFrom();
-        boolean isExists = CommonService.containsSameMonthYear(localDateList, newLastElectricity.getActualDate());
+        boolean isExists = CommonService.containsSameMonthYear(localDateList, newLastElectricity.getDate());
 
         if (!isExists) {
             lastElectricityReadService.save(newLastElectricity);
@@ -111,6 +123,8 @@ public class MainController {
             gasService.save(newGas);
         }
         setModel(model);
+        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
+        model.addAttribute("chartDataList", electricityService.getChartData(false));
         return "index";
     }
 
@@ -130,7 +144,10 @@ public class MainController {
      @RequestMapping("/rawdata")
     public String rawData(Model model) {
         model.addAttribute("elecDataList", electricityService.findAll());
+        model.addAttribute("electricityLastReadList", lastElectricityReadService.getAllLastElectricityRead());
         model.addAttribute("gasDataList", gasService.findAll());
+        model.addAttribute("gasDataLastReadList", gasService.getLastGasReadsList());
+        
         setModel(model);
         return "rawdata";
     }
@@ -144,8 +161,8 @@ public class MainController {
         var electricities = electricityService.findAll();
         var lastElectricityRead = lastElectricityReadService.getLastLastElectricityRead();
 
-        List<MonthlyConsumptionStatData> chartDataList = ElectricityService.getChartData(electricities, lastElectricityRead);
-        model.addAttribute("chartDataList", chartDataList);
+        
+       
         model.addAttribute("elecOverHead", electricityService.getLastElectricity(LocalDate.now()).getDifference());
         model.addAttribute("elecPercentage", electricityService.getSellPercentage());
 
@@ -155,10 +172,9 @@ public class MainController {
         model.addAttribute("newLastElectricity", new Electricity());
 
         model.addAttribute("gasOverHead", gasService.getGasConsumptionLastYear());
-        model.addAttribute("gasChartDataList", gasService.getGasChartData());
         model.addAttribute("gasDifChartDataList", gasService.getGasDifferenceChartData());
         model.addAttribute("lastGasRead", lastGasReadService.getLastGas(LocalDate.now()).getGas());
-        model.addAttribute("lastGas", gasService.getLastGas(LocalDate.now()).getGas());
+        model.addAttribute("lastGas", gasService.getLastGas(LocalDate.now()).getConsumption());
         model.addAttribute("newGas", new GasModel());
         model.addAttribute("newLastGas", new LastGasModel());
 

@@ -6,7 +6,7 @@ public class MonthlyConsumptionStatData {
     private int t280;
     private int headOver;
     private int solar;
-    private int calculatedConsumption;
+    private int consumption;
     private String date;
 
     public MonthlyConsumptionStatData() {
@@ -20,7 +20,7 @@ public class MonthlyConsumptionStatData {
         this.t280 = t280;
         this.headOver = headOver;
         this.solar = solar;
-        this.calculatedConsumption = calculatedConsumption;
+        this.consumption = calculatedConsumption;
         this.date = date;
     }
 
@@ -58,12 +58,12 @@ public class MonthlyConsumptionStatData {
         this.solar = solar;
     }
 
-    public int getCalculatedConsumption() {
-        return calculatedConsumption;
+    public int getConsumption() {
+        return consumption;
     }
 
-    public void setCalculatedConsumption(int calculatedConsumption) {
-        this.calculatedConsumption = calculatedConsumption;
+    public void setConsumption(int calculatedConsumption) {
+        this.consumption = calculatedConsumption;
     }
 
     public String getDate() {
@@ -77,7 +77,7 @@ public class MonthlyConsumptionStatData {
     @Override
     public String toString() {
         return "MonthlyConsumptionStatData [t180=" + t180 + ", t280=" + t280 + ", headOver=" + headOver + ", solar="
-                + solar + ", calculatedConsumption=" + calculatedConsumption + ", date=" + date + "]";
+                + solar + ", calculatedConsumption=" + consumption + ", date=" + date + "]";
     }
 
 }

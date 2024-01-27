@@ -2,14 +2,13 @@ google.charts.load('current', { 'packages': ['bar'] });
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-   
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Month');
     data.addColumn('number', 'Gas');
     for (var i = 0; i < gasChartDataList.length; i++) {
         var rowData = [];
         rowData.push(gasChartDataList[i].date);
-        rowData.push(gasChartDataList[i].gas);
+        rowData.push(gasChartDataList[i].consumption);
         data.addRow(rowData);
     }
     var options = {

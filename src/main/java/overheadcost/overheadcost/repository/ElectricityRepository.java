@@ -11,7 +11,7 @@ import overheadcost.overheadcost.entities.Electricity;
 @Repository
 public interface ElectricityRepository extends JpaRepository<Electricity, Long> {
 
-    Electricity findByActualDate(LocalDate actualDate);
+    Electricity findByDate(LocalDate date);
 
     
 

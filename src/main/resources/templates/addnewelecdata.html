@@ -39,8 +39,8 @@
                     </div>
                     <div class="new-elec-input">
                         <label for="new-date"><span>Leolvasas datuma</span></label>
-                        <input type="date" required="required" id="new-date" th:field="*{actualDate}"
-                            th:value="${newElectricity.actualDate}">
+                        <input type="date" required="required" id="new-date" th:field="*{date}"
+                            th:value="${newElectricity.date}">
                     </div>
                     <button class="submit-button" type="submit">Save client data</button>
                 </div>
@@ -69,8 +69,8 @@
                     </div>
                     <div class="new-elec-input">
                         <label for="new-date"><span>Leolvasas datuma</span></label>
-                        <input type="date" required="required" id="new-last-date" th:field="*{actualDate}"
-                            th:value="${newLastElectricity.actualDate}">
+                        <input type="date" required="required" id="new-last-date" th:field="*{date}"
+                            th:value="${newLastElectricity.date}">
                     </div>
                     <button class="submit-button" type="submit">Save provider data</button>
 

@@ -9,5 +9,5 @@ import overheadcost.overheadcost.entities.LastElectricityRead;
 
 @Repository
 public interface LastElectricityReadRepository extends JpaRepository<LastElectricityRead, Long> {
-    LastElectricityRead findByActualDate(LocalDate actualDate);
+    LastElectricityRead findByDate(LocalDate date);
 }

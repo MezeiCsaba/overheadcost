@@ -16,6 +16,7 @@
         function drawTable() {
             /*<![CDATA[*/
             var tableDataList = /*[[${elecDataList}]]*/null;
+            var electricityLastReadList = /*[[${electricityLastReadList}]]*/null;
             /*]]>*/
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Month');
@@ -23,14 +24,27 @@
             data.addColumn('number', 'Sell');
             data.addColumn('number', 'Overhead');
             data.addColumn('number', 'Solar');
+            data.addColumn('number', 'Last T180');
+            data.addColumn('number', 'Last T280');
 
             for (var i = 0; i < tableDataList.length; i++) {
                 var rowData = [];
-                rowData.push(tableDataList[i].actualDate);
+                var lastReadValueT180 = null;
+                var lastReadValueT280 = null;
+                rowData.push(tableDataList[i].date);
                 rowData.push(tableDataList[i].t180);
                 rowData.push(tableDataList[i].t280);
                 rowData.push(tableDataList[i].difference);
                 rowData.push(tableDataList[i].solar);
+                for (var j = 0; j < electricityLastReadList.length; j++) {
+                    value = getLastReadeValue(tableDataList[i], electricityLastReadList[j]);
+                    if (value != null) {
+                        lastReadValueT180 = value[0];
+                        lastReadValueT280 = value[1];
+                    }
+                }
+                rowData.push((lastReadValueT180 == null) ? 0 : lastReadValueT180);
+                rowData.push((lastReadValueT280 == null) ? 0 : lastReadValueT280);
                 data.addRow(rowData);
             }
 
@@ -40,8 +54,17 @@
             formatter.addRange(5000, null, 'black', '#33ff33');
             formatter.format(data, 3);
 
-            table.draw(data, { allowHtml: true, page: 20, showRowNumber: true, width: '100%', height: '100%' });
+            table.draw(data, { allowHtml: true, page: 'enable', pageSize: 24, showRowNumber: true, width: '100%', height: '100%' });
         }
+
+        function getLastReadeValue(actual, last) {
+            if (IsEqualDates(actual.date, last.date)) {
+                return [last.t180, last.t280];
+            }
+            return null;
+
+        }
+
     </script>
 
     <script th:inline="javascript" type="text/javascript">
@@ -50,22 +73,45 @@
         function drawTable() {
             /*<![CDATA[*/
             var tableDataList = /*[[${gasDataList}]]*/null;
+            var gasDataReadList = /*[[${gasDataLastReadList}]]*/null;
             /*]]>*/
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Month');
             data.addColumn('number', 'Gas');
+            data.addColumn('number', 'LastRead');
 
             for (var i = 0; i < tableDataList.length; i++) {
                 var rowData = [];
+                var lastReadValue = null;
                 rowData.push(tableDataList[i].date);
-                rowData.push(tableDataList[i].gas);
+                rowData.push(tableDataList[i].consumption);
+                for (var j = 0; j < gasDataReadList.length; j++) {
+                    value = getLastReadValue(tableDataList[i], gasDataReadList[j]);
+                    if (value != null) lastReadValue = value;
+                }
+                rowData.push((lastReadValue == null) ? 0 : lastReadValue);
                 data.addRow(rowData);
             }
 
             var table = new google.visualization.Table(document.getElementById('gas_table_div'));
 
-            table.draw(data, { allowHtml: true, page: 20, showRowNumber: true, width: '100%', height: '100%' });
+            table.draw(data, { allowHtml: true, page: 'enable', pageSize: 24, showRowNumber: true, width: '100%', height: '100%' });
         }
+
+        function getLastReadValue(actual, last) {
+            if (IsEqualDates(actual.date, last.date)) {
+                return last.gas;
+            }
+            return null;
+
+        }
+
+        function IsEqualDates(actDate, readDate) {
+            let aDate = new Date(actDate)
+            let rDate = new Date(readDate)
+            return (aDate.getFullYear() === rDate.getFullYear() && aDate.getMonth() === rDate.getMonth())
+        }
+
     </script>
 
 </head>
@@ -77,15 +123,15 @@
                 <div class="tables">
 
                     <div class="elec-table">
-                        
+
                         <div id="elec_table_div"></div>
                     </div>
                     <div class="gas-table">
-                        
+
                         <div id="gas_table_div"></div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </main>

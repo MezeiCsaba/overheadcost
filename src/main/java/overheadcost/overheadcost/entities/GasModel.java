@@ -16,14 +16,14 @@ public class GasModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
-    private int gas;
+    private int consumption;
 
     public GasModel() {
     }
 
     public GasModel(LocalDate date, int gas) {
         this.date = date;
-        this.gas = gas;
+        this.consumption = gas;
     }
 
     public LocalDate getDate() {
@@ -34,12 +34,12 @@ public class GasModel {
         this.date = date;
     }
 
-    public int getGas() {
-        return gas;
+    public int getConsumption() {
+        return consumption;
     }
 
-    public void setGas(int gas) {
-        this.gas = gas;
+    public void setConsumption(int gas) {
+        this.consumption = gas;
     }
 
     public Long getId() {
@@ -52,7 +52,7 @@ public class GasModel {
 
     @Override
     public String toString() {
-        return "Gas [id=" + id + ", date=" + date + ", gas=" + gas + "]";
+        return "Gas [id=" + id + ", date=" + date + ", gas=" + consumption + "]";
     }
 
 }

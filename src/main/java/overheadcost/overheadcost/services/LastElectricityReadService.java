@@ -22,13 +22,18 @@ public class LastElectricityReadService {
 
     public LastElectricityRead getLastLastElectricityRead() {
         return lastElectricityReadRepo.findAll().stream()
-                .max(Comparator.comparing(LastElectricityRead::getActualDate))
+                .max(Comparator.comparing(LastElectricityRead::getDate))
                 .orElse(null);
 
     }
 
+    public List<LastElectricityRead> getAllLastElectricityRead(){
+        return lastElectricityReadRepo.findAll();
+
+    }
+
     public List<LocalDate> getAllLocalDateFrom() {
-        return lastElectricityReadRepo.findAll().stream().map(LastElectricityRead::getActualDate).toList();
+        return lastElectricityReadRepo.findAll().stream().map(LastElectricityRead::getDate).toList();
     }
 
     public void save(LastElectricityRead lastElectricityRead) {
@@ -36,7 +41,7 @@ public class LastElectricityReadService {
             lastElectricityReadRepo.save(lastElectricityRead);
     }
 
-    // @PostConstruct
+    //@PostConstruct
     public void init() {
 
         lastElectricityReadRepo.save(new LastElectricityRead(3364, 0, LocalDate.of(2023, 3, 17)));

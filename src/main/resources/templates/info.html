@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/infostyle.css}">
+
+    <script th:inline="javascript" th:src="@{../js/infoChart.js}" type="text/javascript"
+        src="../static/js/infoChart.js"></script>
+
+</head>
+
+<body class="body-dash">
+
+    <div layout:fragment="subcontent">
+        <div>
+            <!-- <div class="column-chart" id="chart_div"></div> -->
+            <div class="column-chart">
+
+                <canvas id="electcanvas" width="960" height="320"></canvas>
+                <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    var chartDataList = /*[[${chartDataList}]]*/{ 'err': 'no data' };
+                    /*]]>*/
+                    var titleText = 'Electricity consumption per day [kWh]';
+                    var sourceCanvas = "electcanvas";
+                    var barColor = "DodgerBlue";
+                    var pitchY = 5;
+                    drawInfoChart();
+                </script>
+            </div>
+        </div>
+
+        <div>
+            <div class="column-chart">
+                <canvas id="gascanvas" width="960" height="320"></canvas>
+                <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    var chartDataList = /*[[${gasChartDataList}]]*/{ 'err': 'no data' };
+                    /*]]>*/
+                    var sourceCanvas = "gascanvas";
+                    var titleText = 'Average gas consumption per day [m3]';
+                    var barColor = "orange";
+                    var pitchY = 2;
+                    drawInfoChart();
+                </script>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>

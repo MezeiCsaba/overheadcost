@@ -1,22 +1,22 @@
 google.charts.load('current', { 'packages': ['bar'] });
 google.charts.setOnLoadCallback(drawChart);
 
-    
-    function drawChart(){
+
+function drawChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Month');
-    data.addColumn('number', 'Buy');
-    data.addColumn('number', 'Sell');
-    data.addColumn('number', 'Solar');
+        data.addColumn('number', 'Buy');
+        data.addColumn('number', 'Sell');
+        data.addColumn('number', 'Solar');
     data.addColumn('number', 'CalcCons');
 
     for (var i = 0; i < chartDataLists.length; i++) {
         var rowData = [];
         rowData.push(chartDataLists[i].date);
-        rowData.push(chartDataLists[i].t180);
-        rowData.push(chartDataLists[i].t280);
-        rowData.push(chartDataLists[i].solar);
-        rowData.push(chartDataLists[i].calculatedConsumption);
+            rowData.push(chartDataLists[i].t180);
+            rowData.push(chartDataLists[i].t280);
+            rowData.push(chartDataLists[i].solar);
+        rowData.push(chartDataLists[i].consumption);
         data.addRow(rowData);
     }
 

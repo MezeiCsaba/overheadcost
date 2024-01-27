@@ -58,7 +58,7 @@ nav a:hover {
 
 main {
   flex-basis: auto;
-  /* width: 600px */
+  width: 1000px
 }
 
 .overhead {
