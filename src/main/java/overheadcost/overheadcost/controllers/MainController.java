@@ -14,7 +14,6 @@ import overheadcost.overheadcost.entities.Electricity;
 import overheadcost.overheadcost.entities.GasModel;
 import overheadcost.overheadcost.entities.LastElectricityRead;
 import overheadcost.overheadcost.entities.LastGasModel;
-import overheadcost.overheadcost.entities.MonthlyConsumptionStatData;
 import overheadcost.overheadcost.services.CommonService;
 import overheadcost.overheadcost.services.ElectricityService;
 import overheadcost.overheadcost.services.GasService;
@@ -141,28 +140,19 @@ public class MainController {
         return "index";
     }
 
-     @RequestMapping("/rawdata")
+    @RequestMapping("/rawdata")
     public String rawData(Model model) {
         model.addAttribute("elecDataList", electricityService.findAll());
         model.addAttribute("electricityLastReadList", lastElectricityReadService.getAllLastElectricityRead());
         model.addAttribute("gasDataList", gasService.findAll());
         model.addAttribute("gasDataLastReadList", gasService.getLastGasReadsList());
-        
+
         setModel(model);
         return "rawdata";
     }
 
-
-
-
-
     private void setModel(Model model) {
 
-        var electricities = electricityService.findAll();
-        var lastElectricityRead = lastElectricityReadService.getLastLastElectricityRead();
-
-        
-       
         model.addAttribute("elecOverHead", electricityService.getLastElectricity(LocalDate.now()).getDifference());
         model.addAttribute("elecPercentage", electricityService.getSellPercentage());
 

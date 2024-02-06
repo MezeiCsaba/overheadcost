@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import overheadcost.overheadcost.entities.Electricity;
-import overheadcost.overheadcost.entities.LastElectricityRead;
 import overheadcost.overheadcost.entities.MonthlyConsumptionStatData;
 import overheadcost.overheadcost.repository.ElectricityRepository;
 
@@ -36,8 +35,7 @@ public class ElectricityService {
     public String getSellPercentage() {
         float produced = 0;
         float sold = 0;
-        var electList = electricityRepo.findAll();
-        Collections.sort(electList, Comparator.comparing(Electricity::getDate));
+        var electList = findAll();
         for (int i = electList.size() - 1; i > 0; i--) {
             if (electList.get(i).getT280() > 0 && electList.get(i - 1).getT280() > 0
                     && electList.get(i).getSolar() > 0) {
@@ -72,8 +70,6 @@ public class ElectricityService {
     public List<MonthlyConsumptionStatData> getChartData(Boolean isDayType) {
         List<MonthlyConsumptionStatData> chartDataList = new ArrayList<>();
         var electricities = findAll();
-
-        Collections.sort(electricities, Comparator.comparing(Electricity::getDate));
         int maxSize = Math.min(CommonService.MAX_CHART_MONTHS, electricities.size());
         int startIndex = electricities.size() - maxSize;
         int buy = 0;
@@ -95,15 +91,17 @@ public class ElectricityService {
                     : 1;
             int calculatedConsumption = (currentElectricity.getSolar() - sell + buy) / numberOfDaysInMonth;
             calculatedConsumption = (calculatedConsumption < 0) ? 0 : calculatedConsumption;
+            int solar = isDayType ? (100 * sell / currentElectricity.getSolar())
+                    : currentElectricity.getSolar();
 
             chartDataList.add(new MonthlyConsumptionStatData(buy, sell, currentElectricity.getDifference(),
-                    currentElectricity.getSolar(), calculatedConsumption, date));
+                    solar, calculatedConsumption, date));
         }
 
         return chartDataList;
     }
 
-    //@PostConstruct
+    // @PostConstruct
     public void init() {
 
         electricityRepo.save(new Electricity(4751, 5575, 1875, 0, LocalDate.of(2023, 7, 30)));
