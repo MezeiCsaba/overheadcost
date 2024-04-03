@@ -137,6 +137,8 @@ public class MainController {
         }
 
         setModel(model);
+        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
+        model.addAttribute("chartDataList", electricityService.getChartData(false));
         return "index";
     }
 

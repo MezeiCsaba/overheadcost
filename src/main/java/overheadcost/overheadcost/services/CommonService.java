@@ -11,7 +11,7 @@ public class CommonService {
     /**
      *
      */
-    static final int MAX_CHART_MONTHS = 5;
+    static final int MAX_CHART_MONTHS = 7;
 
     public static boolean containsSameMonthYear(List<LocalDate> localDateList, LocalDate actualDate) {
 
