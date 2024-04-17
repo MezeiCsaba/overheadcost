@@ -65,8 +65,9 @@ public class GasService {
         List<MonthlyGasConsumptionDataChartModel> resultList = new ArrayList<>();
         var lastGasRead =getLastGasReadsList();
         Collections.sort(lastGasRead, Comparator.comparing(LastGasModel::getDate));
-        var lastGasReadFirst = lastGasRead.get(1);
-        var lastGasReadSecond = lastGasRead.get(0);
+        int lastGasReadSize= lastGasRead.size();
+        var lastGasReadFirst = lastGasRead.get(lastGasReadSize-1);  // last gas service provider reading
+        var lastGasReadSecond = lastGasRead.get(lastGasReadSize-2); // penultimate gas service provider reading
 
         LocalDate lastReadFirstDate = lastGasReadFirst.getDate();
         int lastReadFirstValue = lastGasReadFirst.getGas();
