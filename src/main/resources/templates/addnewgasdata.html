@@ -49,6 +49,12 @@
                         <input type="date" required="required" id="new-last-date" th:field="*{date}"
                             th:value="${newLastGas.date}">
                     </div>
+                    <div class="new-elec-input">
+                        <label for="is-gas-meter-replacement"><span>Gázóra csere volt</span></label>
+                        <input type="checkbox" id="is-gas-meter-replacement" th:field="*{isGasMeterReplacement}" 
+                               th:checked="${newLastGas.isGasMeterReplacement}">
+                    </div>
+                    
                     <button class="submit-button" type="submit">Save provider data</button>
 
                 </div>

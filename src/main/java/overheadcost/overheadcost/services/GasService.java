@@ -46,6 +46,13 @@ public class GasService {
         List<GasModel> sourceGasList = gasRepository.findAll();
         Collections.sort(sourceGasList, Comparator.comparing(GasModel::getDate));
         List<GasChartModel> resultList = new ArrayList<>();
+
+        var lastGasRead = getLastGasReadsList();
+        Collections.sort(lastGasRead, Comparator.comparing(LastGasModel::getDate));
+        int lastGasReadSize = lastGasRead.size();
+        var isGasMeterReplacement = lastGasRead.get(lastGasReadSize - 1).getIsGasMeterReplacement();
+        var lastGasReadMeterReplacement = lastGasRead.get(lastGasReadSize - 1);
+
         for (int i = 1; i < sourceGasList.size(); i++) {
             LocalDate actualDate = sourceGasList.get(i).getDate();
             int numberOfDaysInMonth = isDayType
@@ -53,6 +60,11 @@ public class GasService {
                     : 1;
             var actualConsumption = (sourceGasList.get(i).getConsumption() - sourceGasList.get(i - 1).getConsumption())
                     / numberOfDaysInMonth;
+            if (actualConsumption < 0 && isGasMeterReplacement) {
+                actualConsumption = (lastGasReadMeterReplacement.getGas() - sourceGasList.get(i - 1).getConsumption()
+                        + sourceGasList.get(i).getConsumption()) / numberOfDaysInMonth;
+            }
+
             resultList.add(new GasChartModel(actualDate.toString().substring(2, 7),
                     actualConsumption));
         }
@@ -63,11 +75,18 @@ public class GasService {
         List<GasChartModel> fromDateList = new ArrayList<>();
         List<GasChartModel> toDateList = new ArrayList<>();
         List<MonthlyGasConsumptionDataChartModel> resultList = new ArrayList<>();
-        var lastGasRead =getLastGasReadsList();
+        var lastGasRead = getLastGasReadsList();
         Collections.sort(lastGasRead, Comparator.comparing(LastGasModel::getDate));
-        int lastGasReadSize= lastGasRead.size();
-        var lastGasReadFirst = lastGasRead.get(lastGasReadSize-1);  // last gas service provider reading
-        var lastGasReadSecond = lastGasRead.get(lastGasReadSize-2); // penultimate gas service provider reading
+        int lastGasReadSize = lastGasRead.size();
+        int shiftIndex = 1;
+        var isGasMeterReplacement = lastGasRead.get(lastGasReadSize - 1).getIsGasMeterReplacement();
+        var lastGasReadMeterReplacement = lastGasRead.get(lastGasReadSize - 1);
+        if (isGasMeterReplacement) {
+            shiftIndex = 2;
+        }
+        var lastGasReadFirst = lastGasRead.get(lastGasReadSize - shiftIndex); // last gas service provider reading
+        var lastGasReadSecond = lastGasRead.get(lastGasReadSize - (shiftIndex + 1)); // penultimate gas service provider
+                                                                                     // reading
 
         LocalDate lastReadFirstDate = lastGasReadFirst.getDate();
         int lastReadFirstValue = lastGasReadFirst.getGas();
@@ -75,6 +94,10 @@ public class GasService {
         List<GasModel> sourceGasList = gasRepository.findAll();
         Collections.sort(sourceGasList, Comparator.comparing(GasModel::getDate));
         int listIndex = findIndexByDate(sourceGasList, lastReadFirstDate);
+
+        if (listIndex == -1)
+            return resultList;
+
         int lastValue = 0;
         int currentValue = 0;
         int chartValue = 0;
@@ -83,6 +106,11 @@ public class GasService {
             String currentDate = sourceGasList.get(i).getDate().toString().substring(5, 7);
             int currentGasValue = sourceGasList.get(i).getConsumption();
             currentValue = (i == listIndex) ? (currentGasValue - lastReadFirstValue) : currentGasValue - lastValue;
+            if (currentValue < 0 && isGasMeterReplacement) {
+                currentValue = lastGasReadMeterReplacement.getGas() - sourceGasList.get(i - 1).getConsumption()
+                        + currentGasValue;
+            }
+
             chartValue += currentValue;
             fromDateList.add(new GasChartModel(currentDate, chartValue));
             lastValue = currentGasValue;
@@ -98,7 +126,7 @@ public class GasService {
             int currentGasValue = (i == listIndex) ? lastReadFirstValue : sourceGasList.get(i).getConsumption();
             currentValue = currentGasValue - lastValue;
             chartValue += currentValue;
-           
+
             toDateList.add(new GasChartModel(currentDate, chartValue));
             lastValue = currentGasValue;
         }
@@ -144,9 +172,11 @@ public class GasService {
     public int[] getGasConsumptionLastYear() {
         int[] result = new int[2];
 
-        int gas = getLastGas(LocalDate.now()).getConsumption();
-        int gasRead = getLastLastGasRead().getGas();
-        result[0] = gas - gasRead;
+        //int gas = getLastGas(LocalDate.now()).getConsumption();
+        //int gasRead = getLastLastGasRead().getGas();
+        var diffChartDataList = getGasDifferenceChartData();
+        var consumedGas = diffChartDataList.get(diffChartDataList.size()-1);
+        result[0] = consumedGas.getGasDataFirst();
         result[1] = GAS_LIMIT;
         return result;
 
@@ -167,7 +197,7 @@ public class GasService {
         return resultList;
     }
 
-    //@PostConstruct
+    // @PostConstruct
     public void init() {
 
         gasRepository.save(new GasModel(LocalDate.of(2022, 2, 28), 17621));

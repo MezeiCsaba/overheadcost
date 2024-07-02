@@ -17,6 +17,9 @@ public class LastGasModel {
     private Long id;
     private LocalDate date;
     private int gas;
+    private Boolean isGasMeterReplacement;
+
+   
 
     public LastGasModel() {
     }
@@ -24,6 +27,12 @@ public class LastGasModel {
     public LastGasModel(LocalDate date, int gas) {
         this.date = date;
         this.gas = gas;
+    }
+
+    public LastGasModel(LocalDate date, int gas, Boolean isGasMeterReplacement) {
+        this.date = date;
+        this.gas = gas;
+        this.isGasMeterReplacement = isGasMeterReplacement;
     }
 
     public LocalDate getDate() {
@@ -50,9 +59,19 @@ public class LastGasModel {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "LastGas [id=" + id + ", date=" + date + ", gas=" + gas + "]";
+    public Boolean getIsGasMeterReplacement() {
+        return isGasMeterReplacement;
     }
 
+    public void setIsGasMeterReplacement(Boolean isGasMeterReplacement) {
+        this.isGasMeterReplacement = isGasMeterReplacement;
+    }
+
+    @Override
+    public String toString() {
+        return "LastGasModel [id=" + id + ", date=" + date + ", gas=" + gas + ", isGasMeterReplacement="
+                + isGasMeterReplacement + "]";
+    }
+
+    
 }
