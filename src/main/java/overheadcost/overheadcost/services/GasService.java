@@ -53,7 +53,7 @@ public class GasService {
         var isGasMeterReplacement = lastGasRead.get(lastGasReadSize - 1).getIsGasMeterReplacement();
         var lastGasReadMeterReplacement = lastGasRead.get(lastGasReadSize - 1);
 
-        for (int i = 1; i < sourceGasList.size(); i++) {
+        for (int i = sourceGasList.size() - 13; i < sourceGasList.size(); i++) {
             LocalDate actualDate = sourceGasList.get(i).getDate();
             int numberOfDaysInMonth = isDayType
                     ? YearMonth.of(actualDate.getYear(), actualDate.getMonthValue()).lengthOfMonth()

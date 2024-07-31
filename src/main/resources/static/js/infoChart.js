@@ -15,7 +15,7 @@ function drawInfoChart() {
         let ptxt = p.z + "";
         ctx.textAlign = "end";
         ctx.fillStyle = (ptxt.includes("%")) ? "SpringGreen" : "white";
-        ctx.font = (ptxt.includes("%")) ? "14px Arial" :  "12px Arial";
+        ctx.font = (ptxt.includes("%")) ? "12px Arial" :  "11px Arial";
         ctx.fillText(ptxt, p.x + offsetx, p.y + offsety);
     };
 
@@ -46,17 +46,19 @@ function drawInfoChart() {
 
     //consumption data columns
     ctx.strokeStyle = barColor;
-    ctx.lineWidth = columnSpaceWidth / 2;
+    ctx.lineWidth = columnSpaceWidth / 1.75;
+
+    let px = 0.75;
 
     for (var i = 0; i < chartDataList.length; i++) {
         ctx.beginPath();
-        ctx.moveTo(25 + columnSpaceWidth * .75 + i * columnSpaceWidth, startY);
-        ctx.lineTo(25 + columnSpaceWidth * .75 + i * columnSpaceWidth, startY - chartDataList[i].consumption * stepY / pitchY);
+        ctx.moveTo(25 + columnSpaceWidth * px + i * columnSpaceWidth, startY);
+        ctx.lineTo(25 + columnSpaceWidth * px + i * columnSpaceWidth, startY - chartDataList[i].consumption * stepY / pitchY);
         ctx.stroke();
-        let p = { x: 28 + columnSpaceWidth * .75 + i * columnSpaceWidth, y: startY + 15, z: chartDataList[i].date };
+        let p = { x: 28 + columnSpaceWidth * px + i * columnSpaceWidth, y: startY + 15, z: chartDataList[i].date };
         labelPoint(p);
         if (sourceCanvas == "electcanvas") {
-            p = { x: 28 + columnSpaceWidth * .75 + i * columnSpaceWidth, y: startY - 15, z: chartDataList[i].solar + '%' };
+            p = { x: 28 + columnSpaceWidth * px + i * columnSpaceWidth, y: startY - 15, z: chartDataList[i].solar + '%' };
             labelPoint(p);
         }
     }
