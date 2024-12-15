@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommonService {
 
-    /**
-     *
-     */
-    static final int MAX_CHART_MONTHS = 5;
+    static final int MAX_CHART_MONTHS = 13;
 
     public static boolean containsSameMonthYear(List<LocalDate> localDateList, LocalDate actualDate) {
 

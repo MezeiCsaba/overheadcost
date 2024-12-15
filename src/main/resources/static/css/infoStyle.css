@@ -19,17 +19,16 @@
     height: 100%; /* A teljes magasságot kitölti */
 }
 
-.col-6 {
-    grid-column: span 6;
+
+
+.column-chart-elec, .column-chart-gas {
+    grid-column: span 12;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.column-chart, .gas-column-chart {
-    width: 98%; /* Rugalmas szélesség */
-    height: 98%; /* Rugalmas magasság */
-    max-width: 98%; /* A túlcsordulás elkerülése */
+    width: 100%; /* Rugalmas szélesség */
+    height: 100%; /* Rugalmas magasság */
+    max-width: 100%; /* A túlcsordulás elkerülése */
     padding: 15px;
     border-radius: 20px;
     border-color: #145241;
@@ -49,7 +48,7 @@
         grid-column: span 6;
     }
 
-    .column-chart, .gas-column-chart {
+    .column-chart {
         height: 300px; /* Csökkentett magasság kisebb képernyőkön */
     }
 }

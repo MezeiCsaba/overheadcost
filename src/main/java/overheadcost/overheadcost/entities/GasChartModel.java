@@ -3,12 +3,12 @@ package overheadcost.overheadcost.entities;
 public class GasChartModel {
 
     String date;
-    int gas;
+    int consumption;
     public GasChartModel() {
     }
     public GasChartModel(String date, int gas) {
         this.date = date;
-        this.gas = gas;
+        this.consumption = gas;
     }
     public String getDate() {
         return date;
@@ -16,15 +16,15 @@ public class GasChartModel {
     public void setDate(String date) {
         this.date = date;
     }
-    public int getGas() {
-        return gas;
+    public int getConsumption() {
+        return consumption;
     }
-    public void setGas(int gas) {
-        this.gas = gas;
+    public void setConsumption(int gas) {
+        this.consumption = gas;
     }
     @Override
     public String toString() {
-        return "GasChartModel [date=" + date + ", gas=" + gas + "]";
+        return "GasChartModel [date=" + date + ", gas=" + consumption + "]";
     }
 
     

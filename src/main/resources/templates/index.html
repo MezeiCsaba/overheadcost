@@ -16,6 +16,7 @@
         /*<![CDATA[*/
         var chartDataLists = /*[[${chartDataList}]]*/ { 'err': 'no data' };
         /*]]>*/
+        window.addEventListener('resize', drawChart);
         drawChart();
     </script>
 
@@ -25,14 +26,20 @@
         /*<![CDATA[*/
         var gasChartDataList = /*[[${gasChartDataList}]]*/null;
         /*]]>*/
+        window.addEventListener('resize', drawChart);
         drawChart();
     </script>
 
     <script th:inline="javascript" type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
+        window.addEventListener('resize', drawChart);
+        drawChart();
 
         function drawChart() {
+            const container = document.getElementById('gas_diff_chart');
+            const width = container.offsetWidth;
+            const height = container.offsetHeight;
             /*<![CDATA[*/
             var chartDataList = /*[[${gasDifChartDataList}]]*/null;
             /*]]>*/
@@ -56,15 +63,15 @@
                     position: 'bottom',
                     textStyle: { color: 'white' }
                 },
-                height: 330,
-                width: 590,
+                height: height * 0.9,
+                width: width *1.1,
                 vAxis: { textStyle: { fontSize: 11, color: 'white' } },
                 hAxis: { textStyle: { fontSize: 11, color: 'white' } },
                 backgroundColor: 'transparent',
                 titleTextStyle: {
                     color: 'white'
                 },
-                colors: ['Aqua', 'DarkCyan', 'red'],
+                colors: ['Aqua', 'green', 'red'],
             };
             var chart = new google.visualization.LineChart(document.getElementById('gas_diff_chart'));
             chart.draw(data, options);
@@ -74,8 +81,13 @@
     <script th:inline="javascript" type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
+        window.addEventListener('resize', drawChart);
+        drawChart();
 
         function drawChart() {
+            const container = document.getElementById('solar_diff_chart');
+            const width = container.offsetWidth;
+            const height = container.offsetHeight;
             /*<![CDATA[*/
             var chartDataList = /*[[${chartDataList}]]*/null;
             /*]]>*/
@@ -95,8 +107,8 @@
                     position: 'bottom',
                     textStyle: { color: 'white' }
                 },
-                height: 330,
-                width: 590,
+                height: height * 0.9, // Dynamic height
+                width: width *1.1 ,  // Dynamic width
                 vAxis: { textStyle: { fontSize: 11, color: 'gold' } },
                 hAxis: { textStyle: { fontSize: 11, color: 'gold' } },
                 backgroundColor: 'transparent',
@@ -109,8 +121,6 @@
             chart.draw(data, options);
         }
     </script>
-
-
 
 </head>
 
@@ -125,7 +135,6 @@
             <div class="col col-6 column-chart" id="gas_chart_div"></div>
             <div class="col col-6 gas-column-chart" id="gas_diff_chart"></div>
         </div>
-    </div>
     </div>
 </body>
 

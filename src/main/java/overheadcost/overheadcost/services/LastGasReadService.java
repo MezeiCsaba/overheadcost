@@ -45,8 +45,9 @@ public class LastGasReadService {
     //@PostConstruct
     public void init() {
 
-        lastGasRepository.save(new LastGasModel(LocalDate.of(2022, 3, 12), 17755));
-        lastGasRepository.save(new LastGasModel(LocalDate.of(2023, 3, 17), 19326));
+        lastGasRepository.save(new LastGasModel(LocalDate.of(2022, 3, 12), 17755, false));
+        lastGasRepository.save(new LastGasModel(LocalDate.of(2023, 3, 17), 19326, false));
+        lastGasRepository.save(new LastGasModel(LocalDate.of(2024, 6, 20), 21021, true));
 
     }
 

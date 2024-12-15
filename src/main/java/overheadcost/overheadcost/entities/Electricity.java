@@ -19,7 +19,7 @@ public class Electricity {
     private int t280;
     private int solar;
     private int difference;
-    private LocalDate actualDate;
+    private LocalDate date;
 
     public Electricity() {
     }
@@ -29,7 +29,7 @@ public class Electricity {
         this.t280 = t280;
         this.solar = solar;
         this.difference = difference;
-        this.actualDate = actualDate;
+        this.date = actualDate;
     }
 
     public int getT180() {
@@ -64,18 +64,18 @@ public class Electricity {
         this.difference = difference;
     }
 
-    public LocalDate getActualDate() {
-        return actualDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setActualDate(LocalDate actualDate) {
-        this.actualDate = actualDate;
+    public void setDate(LocalDate actualDate) {
+        this.date = actualDate;
     }
 
     @Override
     public String toString() {
         return "Electricity [t180=" + t180 + ", t280=" + t280 + ", solar=" + solar + ", difference=" + difference
-                + ", actualDate=" + actualDate + ", id: " + id + "]";
+                + ", actualDate=" + date + ", id: " + id + "]";
     }
 
 }

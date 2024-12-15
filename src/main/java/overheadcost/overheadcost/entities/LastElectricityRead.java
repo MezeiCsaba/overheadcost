@@ -17,7 +17,7 @@ public class LastElectricityRead {
     private Long id;
     private int t180;
     private int t280;
-    private LocalDate actualDate;
+    private LocalDate date;
 
     public LastElectricityRead() {
     }
@@ -25,7 +25,7 @@ public class LastElectricityRead {
     public LastElectricityRead(int t180, int t280, LocalDate actualDate) {
         this.t180 = t180;
         this.t280 = t280;
-        this.actualDate = actualDate;
+        this.date = actualDate;
     }
 
     public int getT180() {
@@ -44,17 +44,17 @@ public class LastElectricityRead {
         this.t280 = t280;
     }
 
-    public LocalDate getActualDate() {
-        return actualDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setActualDate(LocalDate actualDate) {
-        this.actualDate = actualDate;
+    public void setDate(LocalDate actualDate) {
+        this.date = actualDate;
     }
 
     @Override
     public String toString() {
-        return "LastElectricity [t180=" + t180 + ", t280=" + t280 + ", actualDate=" + actualDate + ", id: " + id + "]";
+        return "LastElectricity [t180=" + t180 + ", t280=" + t280 + ", actualDate=" + date + ", id: " + id + "]";
     }
 
 }
