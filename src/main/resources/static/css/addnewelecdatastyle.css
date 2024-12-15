@@ -2,29 +2,26 @@
     box-sizing: border-box
 }
 
-html {
-    height: 100%
-}
-
-body {
-    height: 100%;
-    font-family: 'Arial, Helvetica, sans-serif';
+.body-dash {
     font-weight: 300;
     background: linear-gradient(#030736, #090f69);
+    background-size: cover;
     color: #84a6ca;
-    margin: 0px
+    margin: 0;
+    min-height: 100vh;
 }
 
-.wrapper {
-    display: flex;
-    height: 100%;
-    margin: auto;
+.wrapper-dash {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+    padding: 10px;
+    height: 80%; /* A teljes magasságot kitölti */
 }
-
 
 main {
-    flex-basis: auto;
-    width: 600px
+    width: 700px;
+    grid-column: span 6;
 }
 
 div .new-elec-input {
@@ -84,43 +81,37 @@ input {
     width: 140px;
 }
 
+
 .hr-text {
     line-height: 1em;
     position: relative;
     outline: 0;
     border: 0;
-    color: black;
     text-align: center;
-    opacity: .5;
-
-    &:before {
-        content: '';
-        /* // use the linear-gradient for the fading effect
-      // use a solid background color for a solid bar */
-        background: linear-gradient(to right, transparent, #818078, transparent);
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 100%;
-        height: 1px;
-    }
-
-    &:after {
-        content: attr(data-content);
-        position: relative;
-        display: inline-block;
-        color: black;
-        padding: 1px 1rem;
-        margin: 1rem;
-        line-height: 1.5em;
-        /* // this is really the only tricky part, you need to specify the background color of the container element... */
-        color: #e9cd81;
-        background-color: #060b4f;
-        border-radius: 15px;
-        border-style: solid;
-        border-width: 1px;
-    }
-}
+    opacity: 0.5;
+  }
+  
+  .hr-text:before {
+    content: '';
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  
+  .hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 1.5em;
+    color: #e9cd81;
+    background-color: #060b4f;
+    border-radius: 15px;
+    border: 1px solid;
+  }
 
 .overhead {
     padding: 20px 0 0 0;

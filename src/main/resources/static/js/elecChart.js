@@ -3,19 +3,22 @@ google.charts.setOnLoadCallback(drawChart);
 
 
 function drawChart() {
+    const container = document.getElementById("chart_div");
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Month');
-        data.addColumn('number', 'Buy');
-        data.addColumn('number', 'Sell');
-        data.addColumn('number', 'Solar');
+    data.addColumn('number', 'Buy');
+    data.addColumn('number', 'Sell');
+    data.addColumn('number', 'Solar');
     data.addColumn('number', 'CalcCons');
 
     for (var i = 0; i < chartDataLists.length; i++) {
         var rowData = [];
         rowData.push(chartDataLists[i].date);
-            rowData.push(chartDataLists[i].t180);
-            rowData.push(chartDataLists[i].t280);
-            rowData.push(chartDataLists[i].solar);
+        rowData.push(chartDataLists[i].t180);
+        rowData.push(chartDataLists[i].t280);
+        rowData.push(chartDataLists[i].solar);
         rowData.push(chartDataLists[i].consumption);
         data.addRow(rowData);
     }
@@ -35,8 +38,8 @@ function drawChart() {
         chartArea: { backgroundColor: 'transparent' },
         bar: { groupWidth: '85%' },
         legend: { position: 'none' },
-        height: 300,
-        width: 480,
+        height: height * 0.85,
+        width: width * 0.85,
         fontSize: 12,
         colors: ['Crimson', 'ForestGreen', 'Gold', 'DodgerBlue'],
 

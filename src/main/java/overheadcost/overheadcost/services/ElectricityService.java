@@ -70,7 +70,8 @@ public class ElectricityService {
     public List<MonthlyConsumptionStatData> getChartData(Boolean isDayType) {
         List<MonthlyConsumptionStatData> chartDataList = new ArrayList<>();
         var electricities = findAll();
-        int maxSize = Math.min(CommonService.MAX_CHART_MONTHS, electricities.size());
+        int maxSize = isDayType ? Math.min(33, electricities.size() - 1)
+                : Math.min(CommonService.MAX_CHART_MONTHS, electricities.size());
         int startIndex = electricities.size() - maxSize;
         int buy = 0;
         int sell = 0;
