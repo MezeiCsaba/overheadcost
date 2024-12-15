@@ -9,11 +9,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/addnewelecdatastyle.css}">
 </head>
 
-<body>
+<body class="body-dash">
 
 
-    <div class="wrapper" layout:fragment="subcontent">
-
+    <div layout:fragment="subcontent">
+    <div class="wrapper-dash" >
         <main>
             <hr class="hr-text" data-content="Felhasznaloi havi leolvasas">
             <form class="elect-form" th:object="${newElectricity}" th:action="@{/addNewElectricityData}" method="POST">

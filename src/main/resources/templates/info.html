@@ -10,15 +10,15 @@
 
     <script th:inline="javascript" th:src="@{../js/infoChart.js}" type="text/javascript"
         src="../static/js/infoChart.js"></script>
-
 </head>
 
 <body class="body-dash">
 
     <div layout:fragment="subcontent">
-        <div>
-            <div class="column-chart">
-                <canvas id="electcanvas" width="960" height="320"></canvas>
+        <!-- Villamosenergia-fogyasztási diagram -->
+        <div class="wrapper-dash">
+            <div class="column-chart-elec">
+                <canvas id="electcanvas"></canvas>
                 <script th:inline="javascript" type="text/javascript">
                     /*<![CDATA[*/
                     var chartDataList = /*[[${chartDataList}]]*/{ 'err': 'no data' };
@@ -32,9 +32,10 @@
             </div>
         </div>
 
-        <div>
-            <div class="column-chart">
-                <canvas id="gascanvas" width="960" height="320"></canvas>
+        <!-- Gázfogyasztási diagram -->
+        <div class="wrapper-dash">
+            <div class="column-chart-gas">
+                <canvas id="gascanvas"></canvas>
                 <script th:inline="javascript" type="text/javascript">
                     /*<![CDATA[*/
                     var chartDataList = /*[[${gasChartDataList}]]*/{ 'err': 'no data' };
@@ -47,7 +48,6 @@
                 </script>
             </div>
         </div>
-
     </div>
 
 </body>
