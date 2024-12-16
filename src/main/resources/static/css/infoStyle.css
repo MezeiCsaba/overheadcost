@@ -13,7 +13,6 @@
 
 .wrapper-dash {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
     gap: 10px;
     padding: 10px;
     height: 100%; /* A teljes magasságot kitölti */
@@ -22,13 +21,9 @@
 
 
 .column-chart-elec, .column-chart-gas {
-    grid-column: span 12;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%; /* Rugalmas szélesség */
-    height: 100%; /* Rugalmas magasság */
-    max-width: 100%; /* A túlcsordulás elkerülése */
+    width: 98%; /* Rugalmas szélesség */
+    height: 98%; /* Rugalmas magasság */
+    max-width: 98%; /* A túlcsordulás elkerülése */
     padding: 15px;
     border-radius: 20px;
     border-color: #145241;

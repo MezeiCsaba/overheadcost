@@ -14,14 +14,13 @@
 .wrapper-dash {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 10px;
-    padding: 10px;
-    height: 80%; /* A teljes magasságot kitölti */
+    gap: 0px;
+    padding: 0px;
+    height: 100%; /* A teljes magasságot kitölti */
 }
 
 main {
-    width: 700px;
-    grid-column: span 6;
+    width: 750px;
 }
 
 div .new-elec-input {
@@ -32,7 +31,7 @@ div .new-elec-input {
     background: 'transparent';
     /* background: #19b18881; */
     color: #399dd7f5;
-    padding: 5px 25px;
+    padding: 10px 25px;
     margin: 5px auto;
     width: 80%;
 
@@ -51,10 +50,7 @@ div .new-elec-input {
     background-color: 'transparent';
     /* background-color: rgba(0, 255, 255, 0.336); */
     padding: 10px 10px;
-    margin: 10px;
-
-
-
+    margin: 20px 20px;
 }
 
 .submit-button {
@@ -62,8 +58,6 @@ div .new-elec-input {
     border-radius: 10px;
     padding: 5px 10px;
     margin: 15px 15px 5px 15px;
-
-
 }
 
 .submit-button:hover {
