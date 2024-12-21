@@ -1,16 +1,30 @@
 package overheadcost.overheadcost.entities;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "electricity")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Electricity {
+    public Electricity(int t180, int t280, int solar, int difference, LocalDate date) {
+        this.t180 = t180;
+        this.t280 = t280;
+        this.solar = solar;
+        this.difference = difference;
+        this.date = date;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,62 +34,4 @@ public class Electricity {
     private int solar;
     private int difference;
     private LocalDate date;
-
-    public Electricity() {
-    }
-
-    public Electricity(int t180, int t280, int solar, int difference, LocalDate actualDate) {
-        this.t180 = t180;
-        this.t280 = t280;
-        this.solar = solar;
-        this.difference = difference;
-        this.date = actualDate;
-    }
-
-    public int getT180() {
-        return t180;
-    }
-
-    public void setT180(int t180) {
-        this.t180 = t180;
-    }
-
-    public int getT280() {
-        return t280;
-    }
-
-    public void setT280(int t280) {
-        this.t280 = t280;
-    }
-
-    public int getSolar() {
-        return solar;
-    }
-
-    public void setSolar(int solar) {
-        this.solar = solar;
-    }
-
-    public int getDifference() {
-        return difference;
-    }
-
-    public void setDifference(int difference) {
-        this.difference = difference;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate actualDate) {
-        this.date = actualDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Electricity [t180=" + t180 + ", t280=" + t280 + ", solar=" + solar + ", difference=" + difference
-                + ", actualDate=" + date + ", id: " + id + "]";
-    }
-
 }

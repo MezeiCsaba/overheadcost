@@ -8,7 +8,7 @@ html {
 
 body {
   height: 100%;
-  font-family: 'Garamond, serif';
+   font-family: 'Garamond, serif';
   font-size: 16px;
   font-weight: 300;
   background: linear-gradient(#020527fa, #02073de9);
@@ -31,7 +31,12 @@ body {
 
 nav {
   background-color: #2d3744;
-  font-size: 16px;
+  font-family: 'Arial', sans-serif; /* Javasolt tiszta és modern betűtípus */
+  text-transform: uppercase; /* Nagybetűssé teszi a szöveget */
+  font-size: 16px; /* Alap méret */
+  font-weight: bold; /* Félkövér betűk a kiemeltséghez */
+  color: #333; /* Sötétszürke szöveg */
+  text-decoration: none; /* Nincs aláhúzás */
   display: flex;
   flex-direction: column; /* A tartalom függőleges rendezése */
   height: 100%; /* A teljes magasság kitöltése */

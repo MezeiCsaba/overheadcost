@@ -8,70 +8,24 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
 @Entity
 @Table(name = "lastgas")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class LastGasModel {
-
+    public LastGasModel(LocalDate of, int i, boolean b) {
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
     private int gas;
     private Boolean isGasMeterReplacement;
-
-   
-
-    public LastGasModel() {
-    }
-
-    public LastGasModel(LocalDate date, int gas) {
-        this.date = date;
-        this.gas = gas;
-    }
-
-    public LastGasModel(LocalDate date, int gas, Boolean isGasMeterReplacement) {
-        this.date = date;
-        this.gas = gas;
-        this.isGasMeterReplacement = isGasMeterReplacement;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public int getGas() {
-        return gas;
-    }
-
-    public void setGas(int gas) {
-        this.gas = gas;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Boolean getIsGasMeterReplacement() {
-        return isGasMeterReplacement;
-    }
-
-    public void setIsGasMeterReplacement(Boolean isGasMeterReplacement) {
-        this.isGasMeterReplacement = isGasMeterReplacement;
-    }
-
-    @Override
-    public String toString() {
-        return "LastGasModel [id=" + id + ", date=" + date + ", gas=" + gas + ", isGasMeterReplacement="
-                + isGasMeterReplacement + "]";
-    }
-
-    
 }

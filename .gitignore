@@ -38,3 +38,4 @@ bin/
 *.gz
 overheadcost.jar
 testdb.mv.OLD.db
+testdb.trace.db

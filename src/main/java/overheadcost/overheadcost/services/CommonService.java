@@ -11,17 +11,18 @@ public class CommonService {
     static final int MAX_CHART_MONTHS = 13;
 
     public static boolean containsSameMonthYear(List<LocalDate> localDateList, LocalDate actualDate) {
-
-        if (actualDate == null)
+        if (actualDate == null) {
             return true;
+        }
+
         int actualYear = actualDate.getYear();
         int actualMonth = actualDate.getMonthValue();
 
         return localDateList.stream()
-                .anyMatch(currentDate -> currentDate.getYear() == actualYear
-                        && currentDate.getMonthValue() == actualMonth);
+                .anyMatch(currentDate -> isSameMonthYear(currentDate, actualYear, actualMonth));
     }
 
-    
-
+    private static boolean isSameMonthYear(LocalDate date, int year, int month) {
+        return date.getYear() == year && date.getMonthValue() == month;
+    }
 }

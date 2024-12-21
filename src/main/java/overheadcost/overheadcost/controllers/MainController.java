@@ -50,27 +50,19 @@ public class MainController {
 
     @RequestMapping("/")
     public String index(Model model) {
-
-        setModel(model);
-        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
-        model.addAttribute("chartDataList", electricityService.getChartData(false));
+        setModel(model, false);
         return "index";
     }
 
     @RequestMapping("/info")
     public String info(Model model) {
-
-        setModel(model);
-        model.addAttribute("gasChartDataList", gasService.getGasChartData(true));
-        model.addAttribute("chartDataList", electricityService.getChartData(true));
+        setModel(model, true);
         return "info";
     }
 
     @RequestMapping("/addnewelecdata")
     public String dashboard(Model model) {
-
-        setModel(model);
-
+        setModel(model, false);
         return "addnewelecdata";
     }
 
@@ -87,9 +79,7 @@ public class MainController {
             electricityService.save(newElectricity);
         }
 
-        setModel(model);
-        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
-        model.addAttribute("chartDataList", electricityService.getChartData(false));
+        setModel(model, false);
         return "index";
     }
 
@@ -102,14 +92,13 @@ public class MainController {
             lastElectricityReadService.save(newLastElectricity);
         }
 
-        setModel(model);
+        setModel(model, false);
         return "index";
     }
 
     @RequestMapping("/addnewgas")
     public String addNewGas(@ModelAttribute GasModel newGas, Model model) {
-
-        setModel(model);
+        setModel(model, false);
         return "addnewgasdata";
     }
 
@@ -121,9 +110,7 @@ public class MainController {
         if (!isExistsDate) {
             gasService.save(newGas);
         }
-        setModel(model);
-        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
-        model.addAttribute("chartDataList", electricityService.getChartData(false));
+        setModel(model, false);
         return "index";
     }
 
@@ -136,9 +123,7 @@ public class MainController {
             lastGasReadService.save(newLastGas);
         }
 
-        setModel(model);
-        model.addAttribute("gasChartDataList", gasService.getGasChartData(false));
-        model.addAttribute("chartDataList", electricityService.getChartData(false));
+        setModel(model, false);
         return "index";
     }
 
@@ -149,27 +134,24 @@ public class MainController {
         model.addAttribute("gasDataList", gasService.findAll());
         model.addAttribute("gasDataLastReadList", gasService.getLastGasReadsList());
 
-        setModel(model);
+        setModel(model, false);
         return "rawdata";
     }
 
-    private void setModel(Model model) {
-
+    private void setModel(Model model, boolean isInfo) {
         model.addAttribute("elecOverHead", electricityService.getLastElectricity(LocalDate.now()).getDifference());
         model.addAttribute("elecPercentage", electricityService.getSellPercentage());
-
         model.addAttribute("lastElectricityRead", lastElectricityReadService.getLastLastElectricityRead());
         model.addAttribute("lastElectricity", electricityService.getLastElectricity(LocalDate.now()));
         model.addAttribute("newElectricity", new Electricity());
         model.addAttribute("newLastElectricity", new Electricity());
-
         model.addAttribute("gasOverHead", gasService.getGasConsumptionLastYear());
         model.addAttribute("gasDifChartDataList", gasService.getGasDifferenceChartData());
         model.addAttribute("lastGasRead", lastGasReadService.getLastGas(LocalDate.now()).getGas());
         model.addAttribute("lastGas", gasService.getLastGas(LocalDate.now()).getConsumption());
         model.addAttribute("newGas", new GasModel());
         model.addAttribute("newLastGas", new LastGasModel());
-
+        model.addAttribute("gasChartDataList", gasService.getGasChartData(isInfo));
+        model.addAttribute("chartDataList", electricityService.getChartData(isInfo));
     }
-
 }

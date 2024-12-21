@@ -8,51 +8,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
 @Entity
 @Table(name = "gas")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class GasModel {
-
+    public GasModel(LocalDate date, int consumption) {
+        this.date = date;
+        this.consumption = consumption;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
     private int consumption;
-
-    public GasModel() {
-    }
-
-    public GasModel(LocalDate date, int gas) {
-        this.date = date;
-        this.consumption = gas;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public int getConsumption() {
-        return consumption;
-    }
-
-    public void setConsumption(int gas) {
-        this.consumption = gas;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Gas [id=" + id + ", date=" + date + ", gas=" + consumption + "]";
-    }
-
 }

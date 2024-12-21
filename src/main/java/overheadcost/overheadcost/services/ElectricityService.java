@@ -70,36 +70,53 @@ public class ElectricityService {
     public List<MonthlyConsumptionStatData> getChartData(Boolean isDayType) {
         List<MonthlyConsumptionStatData> chartDataList = new ArrayList<>();
         var electricities = findAll();
-        int maxSize = isDayType ? Math.min(33, electricities.size() - 1)
-                : Math.min(CommonService.MAX_CHART_MONTHS, electricities.size());
+        int maxSize = calculateMaxSize(isDayType, electricities.size());
         int startIndex = electricities.size() - maxSize;
-        int buy = 0;
-        int sell = 0;
 
         for (int i = startIndex; i < electricities.size(); i++) {
             Electricity currentElectricity = electricities.get(i);
             Electricity previousElectricity = (i > 0) ? electricities.get(i - 1) : null;
 
-            String date = currentElectricity.getDate().toString().substring(2, 7);
-
-            if (previousElectricity != null) {
-                sell = currentElectricity.getT280() - previousElectricity.getT280();
-                buy = currentElectricity.getT180() - previousElectricity.getT180();
-            }
-            LocalDate actualDate = currentElectricity.getDate();
-            int numberOfDaysInMonth = isDayType
-                    ? YearMonth.of(actualDate.getYear(), actualDate.getMonthValue()).lengthOfMonth()
-                    : 1;
-            int calculatedConsumption = (currentElectricity.getSolar() - sell + buy) / numberOfDaysInMonth;
-            calculatedConsumption = (calculatedConsumption < 0) ? 0 : calculatedConsumption;
-            int solar = isDayType ? (100 * sell / currentElectricity.getSolar())
-                    : currentElectricity.getSolar();
+            String date = extractDate(currentElectricity);
+            int sell = calculateSell(currentElectricity, previousElectricity);
+            int buy = calculateBuy(currentElectricity, previousElectricity);
+            int calculatedConsumption = calculateConsumption(currentElectricity, sell, buy, isDayType);
+            int solar = calculateSolar(currentElectricity, sell, isDayType);
 
             chartDataList.add(new MonthlyConsumptionStatData(buy, sell, currentElectricity.getDifference(),
                     solar, calculatedConsumption, date));
         }
 
         return chartDataList;
+    }
+
+    private int calculateMaxSize(Boolean isDayType, int size) {
+        return isDayType ? Math.min(33, size - 1) : Math.min(CommonService.MAX_CHART_MONTHS, size);
+    }
+
+    private String extractDate(Electricity electricity) {
+        return electricity.getDate().toString().substring(2, 7);
+    }
+
+    private int calculateSell(Electricity current, Electricity previous) {
+        return (previous != null) ? current.getT280() - previous.getT280() : 0;
+    }
+
+    private int calculateBuy(Electricity current, Electricity previous) {
+        return (previous != null) ? current.getT180() - previous.getT180() : 0;
+    }
+
+    private int calculateConsumption(Electricity electricity, int sell, int buy, Boolean isDayType) {
+        LocalDate actualDate = electricity.getDate();
+        int numberOfDaysInMonth = isDayType
+                ? YearMonth.of(actualDate.getYear(), actualDate.getMonthValue()).lengthOfMonth()
+                : 1;
+        int calculatedConsumption = (electricity.getSolar() - sell + buy) / numberOfDaysInMonth;
+        return Math.max(calculatedConsumption, 0);
+    }
+
+    private int calculateSolar(Electricity electricity, int sell, Boolean isDayType) {
+        return isDayType ? (100 * sell / electricity.getSolar()) : electricity.getSolar();
     }
 
     // @PostConstruct
