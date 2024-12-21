@@ -2,14 +2,12 @@ package overheadcost.overheadcost.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import overheadcost.overheadcost.entities.Electricity;
 import overheadcost.overheadcost.entities.GasModel;
 import overheadcost.overheadcost.entities.LastElectricityRead;
@@ -136,6 +134,14 @@ public class MainController {
 
         setModel(model, false);
         return "rawdata";
+    }
+
+    @RequestMapping("/yearlydata")
+    public String yearlyData(Model model) {
+        var year = LocalDate.now().getYear();
+        model.addAttribute("yearlyData", electricityService.getYearlyData(year));
+        setModel(model, false);
+        return "yearlydata";
     }
 
     private void setModel(Model model, boolean isInfo) {

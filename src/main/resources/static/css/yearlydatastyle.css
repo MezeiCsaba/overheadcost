@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+.body-dash {
+    font-weight: 300;
+    background: linear-gradient(#030736, #090f69);
+    background-size: cover;
+    color: #84a6ca;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.wrapper-dash {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    height: 100%; /* A teljes magasságot kitölti */
+}
+
+.elec-table {
+    width: 98%; /* Rugalmas szélesség */
+    height: 98%; /* Rugalmas magasság */
+    max-width: 98%; /* A túlcsordulás elkerülése */
+    padding: 15px;
+    border-radius: 20px;
+    border-color: #145241;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 0 4px 8px rgba(5, 23, 138, 0.7), 0 6px 20px rgba(6, 6, 111, 0.6);
+    background-color: rgba(255, 255, 255, 0.1); /* Átlátszó háttér */
+}
+
+/* Reszponzív megjelenés */
+@media (max-width: 1024px) {
+    .wrapper-dash {
+        grid-template-columns: repeat(6, 1fr); /* 6 oszlopos rács kisebb képernyőkhöz */
+    }
+
+}
+
+@media (max-width: 768px) {
+    .wrapper-dash {
+        grid-template-columns: 1fr; /* Egyetlen oszlop mobil eszközökhöz */
+    }
+
+
+    .column-chart, .gas-column-chart {
+        height: 250px; /* Mobil eszközökre igazított magasság */
+        padding: 10px;
+    }
+}

@@ -13,7 +13,7 @@
     <div layout:fragment="subcontent">
         <div class="wrapper-dash">
             <main>
-                <hr class="hr-text" data-content="Felhasznaloi havi leolvasas">
+                <hr class="hr-textd" data-content="Felhasznaloi havi leolvasas">
                 <form class="elect-form" th:object="${newGas}" th:action="@{/addnewgasdata}" method="POST">
                     <div class="gasinfo">
                         <p th:text="${lastGas}"> </p>
@@ -33,7 +33,7 @@
                     </div>
                 </form>
 
-                <hr class="hr-text" data-content="Szolgaltatoi eves leolvasas">
+                <hr class="hr-textd" data-content="Szolgaltatoi eves leolvasas">
 
                 <form class="last-elect-form" th:object="${newLastGas}" th:action="@{/addnewlastgasdata}" method="POST">
                     <div class="gasinfo">

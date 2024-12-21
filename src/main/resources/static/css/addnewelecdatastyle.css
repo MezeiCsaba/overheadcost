@@ -12,7 +12,7 @@
 }
 
 .wrapper-dash {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(12, 1fr);
     gap: 0px;
     padding: 0px;

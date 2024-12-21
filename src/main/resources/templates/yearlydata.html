@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+
+<head>
+    <meta charset="utf-8">
+    <title>Yearly Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/yearlydatastyle.css}">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script th:inline="javascript" type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        window.addEventListener('resize', drawChart);
+
+        function drawChart() {
+            const container = document.getElementById("yearly_chart");
+            const width = container.offsetWidth;
+            const height = container.offsetHeight;
+
+            /*<![CDATA[*/
+            var yearlyData = /*[[${yearlyData}]]*/null;
+            /*]]>*/
+
+            const valuesArray = Object.values(yearlyData);
+            const keyArray = Object.keys(yearlyData);
+
+            var data = google.visualization.arrayToDataTable([
+                ["Type", "Value", { role: "style" }],
+                [keyArray[0], valuesArray[0], "Crimson"],
+                [keyArray[1], valuesArray[1], "ForestGreen"],
+                [keyArray[2], valuesArray[2], "Gold"],
+                [keyArray[3], valuesArray[3], "DodgerBlue"]
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                title: "Actual year consumption and production data [kWh]",
+                width: width,
+                height: 650,
+                bar: { groupWidth: "80%" },
+                legend: { position: "none" },
+                titleTextStyle: {
+                    color: 'white'
+                },
+                bars: 'vertical',
+                vAxis: { format: 'decimal' },
+                vAxis: { textStyle: { fontSize: 12, color: 'white' } },
+                hAxis: { textStyle: { fontSize: 14, color: 'white' } },
+                chartArea: { backgroundColor: 'transparent' },
+                backgroundColor: 'transparent'
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById(container.id));
+            chart.draw(view, options);
+        }
+    </script>
+
+</head>
+
+<body>
+    <main>
+        <div layout:fragment="subcontent">
+            <div col class="wrapper-dash">
+                <div class="elec-table">
+                    <div id="yearly_chart"></div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+</body>
+
+</html>

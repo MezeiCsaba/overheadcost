@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,6 +121,38 @@ public class ElectricityService {
 
     private int calculateSolar(Electricity electricity, int sell, Boolean isDayType) {
         return isDayType ? (100 * sell / electricity.getSolar()) : electricity.getSolar();
+    }
+
+    public Map<String, Integer> getYearlyData(int year) {
+        Map<String, Integer> yearlyData = new LinkedHashMap<>();
+        int totalSold = 0;
+        int totalBought = 0;
+        int totalSolar = 0;
+        int totalConsumption = 0;
+
+        var electricities = findAll();
+        for (int i = 0; i < electricities.size(); i++) {
+            Electricity electricity = electricities.get(i);
+            if (electricity.getDate().getYear() == year) {
+                Electricity currentElectricity = electricities.get(i);
+                Electricity previousElectricity = (i > 0) ? electricities.get(i - 1) : null;
+
+                int sell = calculateSell(currentElectricity, previousElectricity);
+                int buy = calculateBuy(currentElectricity, previousElectricity);
+                int calculatedConsumption = calculateConsumption(currentElectricity, sell, buy, false);
+                int solar = calculateSolar(currentElectricity, sell, false);
+                totalSold += sell;
+                totalBought += buy;
+                totalSolar += solar;
+                totalConsumption += calculatedConsumption;
+            }
+        }
+        yearlyData.put("Bought", totalBought);
+        yearlyData.put("Sold", totalSold);
+        yearlyData.put("Solar", totalSolar);
+        yearlyData.put("Consumption", totalConsumption);
+
+        return yearlyData;
     }
 
     // @PostConstruct

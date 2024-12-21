@@ -8,7 +8,7 @@ html {
 
 body {
   height: 100%;
-   font-family: 'Garamond, serif';
+  font-family: 'Garamond, serif';
   font-size: 16px;
   font-weight: 300;
   background: linear-gradient(#020527fa, #02073de9);
@@ -21,36 +21,51 @@ body {
   height: 100%;
   margin: auto;
 }
+
 .content {
   display: flex;
   flex-direction: column;
-  flex: 1; /* A rendelkezésre álló helyet kitölti */
-  overflow-y: auto; /* Ha a tartalom túlcsordul, görgethető lesz */
+  flex: 1;
+  /* A rendelkezésre álló helyet kitölti */
+  overflow-y: auto;
+  /* Ha a tartalom túlcsordul, görgethető lesz */
   padding: 20px;
 }
 
 nav {
   background-color: #2d3744;
-  font-family: 'Arial', sans-serif; /* Javasolt tiszta és modern betűtípus */
-  text-transform: uppercase; /* Nagybetűssé teszi a szöveget */
-  font-size: 16px; /* Alap méret */
-  font-weight: bold; /* Félkövér betűk a kiemeltséghez */
-  color: #333; /* Sötétszürke szöveg */
-  text-decoration: none; /* Nincs aláhúzás */
-  display: flex;
-  flex-direction: column; /* A tartalom függőleges rendezése */
-  height: 100%; /* A teljes magasság kitöltése */
-  position: relative; /* A pozicionálás a szülőhöz viszonyítva történik */
   
+  display: flex;
+  flex-direction: column;
+  /* A tartalom függőleges rendezése */
+  height: 100%;
+  /* A teljes magasság kitöltése */
+  position: relative;
+  /* A pozicionálás a szülőhöz viszonyítva történik */
+
 }
 
 nav ul {
+  font-family: 'Arial', sans-serif;
+  /* Javasolt tiszta és modern betűtípus */
+  text-transform: uppercase;
+  /* Nagybetűssé teszi a szöveget */
+  font-size: 16px;
+  /* Alap méret */
+  font-weight: bold;
+  /* Félkövér betűk a kiemeltséghez */
+  color: #333;
+  /* Sötétszürke szöveg */
+  text-decoration: none;
+  /* Nincs aláhúzás */
   list-style: none;
   padding: 0;
   margin: 15px;
   display: flex;
-  flex-direction: column; /* A menü elemek függőlegesen helyezkednek el */
-  flex-grow: 1; /* A menü kitölti a rendelkezésre álló helyet */
+  flex-direction: column;
+  /* A menü elemek függőlegesen helyezkednek el */
+  flex-grow: 1;
+  /* A menü kitölti a rendelkezésre álló helyet */
 }
 
 nav ul li {
@@ -74,12 +89,15 @@ nav ul li a:hover {
 .info-section {
   /* position: absolute; */
   /* bottom: 2%; Az info-section középre kerül függőlegesen */
-   
-  width: 100%; /* Az info-section szélessége teljes */
+  text-transform: lowercase;
+  width: 100%;
+  /* Az info-section szélessége teljes */
   padding: 30px;
   margin-top: 5px;
-  background-color: #333; /* Alap háttérszín */
-  color: #fff; /* Szöveg szín */
+  background-color: #333;
+  /* Alap háttérszín */
+  color: #fff;
+  /* Szöveg szín */
   text-align: center;
 }
 
@@ -161,11 +179,11 @@ main {
     height: 60px;
     font-size: 20px;
   }
-  
+
   .info-section {
     padding: 15px;
     font-size: 14px;
-}
+  }
 
   .hr-text:after {
     font-size: 14px;
