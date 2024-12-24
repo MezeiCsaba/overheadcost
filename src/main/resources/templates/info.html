@@ -9,7 +9,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/infostyle.css}">
 
     <script th:inline="javascript" th:src="@{../js/infoChart.js}" type="text/javascript"
-        src="../static/js/infoChart.js"></script>
+        src="../static/js/infoChart.js">
+            window.addEventListener('resize', drawChart);
+        </script>
 </head>
 
 <body class="body-dash">
