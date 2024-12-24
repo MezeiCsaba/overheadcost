@@ -89,7 +89,7 @@ nav ul li a:hover {
 .info-section {
   /* position: absolute; */
   /* bottom: 2%; Az info-section középre kerül függőlegesen */
-  text-transform: lowercase;
+  text-transform: none;
   width: 100%;
   /* Az info-section szélessége teljes */
   padding: 30px;

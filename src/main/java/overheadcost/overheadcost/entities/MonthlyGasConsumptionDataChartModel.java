@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString
 public class MonthlyGasConsumptionDataChartModel {
     private String month;
-    private int gasDataFirst;
-    private int gasDataSecond;
+    private float gasDataFirst;
+    private float gasDataSecond;
 }

@@ -6,11 +6,9 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,7 +82,7 @@ public class ElectricityService {
             String date = extractDate(currentElectricity);
             int sell = calculateSell(currentElectricity, previousElectricity);
             int buy = calculateBuy(currentElectricity, previousElectricity);
-            int calculatedConsumption = calculateConsumption(currentElectricity, sell, buy, isDayType);
+            float calculatedConsumption = calculateConsumption(currentElectricity, sell, buy, isDayType);
             int solar = calculateSolar(currentElectricity, sell, isDayType);
 
             chartDataList.add(new MonthlyConsumptionStatData(buy, sell, currentElectricity.getDifference(),
@@ -110,12 +108,12 @@ public class ElectricityService {
         return (previous != null) ? current.getT180() - previous.getT180() : 0;
     }
 
-    private int calculateConsumption(Electricity electricity, int sell, int buy, Boolean isDayType) {
+    private float calculateConsumption(Electricity electricity, int sell, int buy, Boolean isDayType) {
         LocalDate actualDate = electricity.getDate();
         int numberOfDaysInMonth = isDayType
                 ? YearMonth.of(actualDate.getYear(), actualDate.getMonthValue()).lengthOfMonth()
                 : 1;
-        int calculatedConsumption = (electricity.getSolar() - sell + buy) / numberOfDaysInMonth;
+        float calculatedConsumption = (float)(electricity.getSolar() - sell + buy) / numberOfDaysInMonth;
         return Math.max(calculatedConsumption, 0);
     }
 
@@ -139,7 +137,7 @@ public class ElectricityService {
 
                 int sell = calculateSell(currentElectricity, previousElectricity);
                 int buy = calculateBuy(currentElectricity, previousElectricity);
-                int calculatedConsumption = calculateConsumption(currentElectricity, sell, buy, false);
+                float calculatedConsumption = calculateConsumption(currentElectricity, sell, buy, false);
                 int solar = calculateSolar(currentElectricity, sell, false);
                 totalSold += sell;
                 totalBought += buy;
@@ -147,9 +145,9 @@ public class ElectricityService {
                 totalConsumption += calculatedConsumption;
             }
         }
-        yearlyData.put("Bought", totalBought);
-        yearlyData.put("Sold", totalSold);
-        yearlyData.put("Solar", totalSolar);
+        yearlyData.put("Purchased energy", totalBought);
+        yearlyData.put("Solar energy sold", totalSold);
+        yearlyData.put("Solar production", totalSolar);
         yearlyData.put("Consumption", totalConsumption);
 
         return yearlyData;

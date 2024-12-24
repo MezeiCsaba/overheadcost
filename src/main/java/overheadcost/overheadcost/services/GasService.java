@@ -65,8 +65,8 @@ public class GasService {
         return resultList;
     }
 
-    private int calculateActualConsumption(List<GasModel> sourceGasList, int index, int numberOfDaysInMonth, boolean isGasMeterReplacement, LastGasModel lastGasReadMeterReplacement) {
-        var actualConsumption = (sourceGasList.get(index).getConsumption() - sourceGasList.get(index - 1).getConsumption())
+    private float calculateActualConsumption(List<GasModel> sourceGasList, int index, int numberOfDaysInMonth, boolean isGasMeterReplacement, LastGasModel lastGasReadMeterReplacement) {
+        float actualConsumption = (float)(sourceGasList.get(index).getConsumption() - sourceGasList.get(index - 1).getConsumption())
                 / numberOfDaysInMonth;
         if (actualConsumption < 0 && isGasMeterReplacement) {
             actualConsumption = (lastGasReadMeterReplacement.getGas() - sourceGasList.get(index - 1).getConsumption()
@@ -105,8 +105,8 @@ public class GasService {
         populateGasChartData(toDateList, sourceGasList, Math.max(0, listIndex - 12), lastReadSecondValue, isGasMeterReplacement, lastGasReadMeterReplacement);
 
         for (int i = 0; i <= 12; i++) {
-            int fromDateGas = getGasValue(fromDateList, i);
-            int toDateGas = getGasValue(toDateList, i);
+            var fromDateGas = getGasValue(fromDateList, i);
+            var toDateGas = getGasValue(toDateList, i);
             String date = getDate(fromDateList, toDateList, i);
             resultList.add(new MonthlyGasConsumptionDataChartModel(date, fromDateGas, toDateGas));
         }
@@ -134,7 +134,7 @@ public class GasService {
         }
     }
 
-    private int getGasValue(List<GasChartModel> gasChartDataList, int index) {
+    private float getGasValue(List<GasChartModel> gasChartDataList, int index) {
         int size = gasChartDataList.size();
         return (index < size) ? gasChartDataList.get(index).getConsumption()
                 : gasChartDataList.get(size - 1).getConsumption();
@@ -165,8 +165,8 @@ public class GasService {
                 .orElse(null);
     }
 
-    public int[] getGasConsumptionLastYear() {
-        int[] result = new int[2];
+    public float[] getGasConsumptionLastYear() {
+        float[] result = new float[2];
         var diffChartDataList = getGasDifferenceChartData();
         var consumedGas = diffChartDataList.get(diffChartDataList.size() - 1);
         result[0] = consumedGas.getGasDataFirst();

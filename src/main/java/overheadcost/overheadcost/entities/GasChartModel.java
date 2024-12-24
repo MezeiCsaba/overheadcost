@@ -9,5 +9,5 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class GasChartModel {
     private String date;
-    private int consumption;
+    private float consumption;
 }

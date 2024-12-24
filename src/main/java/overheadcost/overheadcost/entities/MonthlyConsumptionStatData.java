@@ -14,6 +14,6 @@ public class MonthlyConsumptionStatData {
     private int t280;
     private int headOver;
     private int solar;
-    private int consumption;
+    private float consumption;
     private String date;
 }

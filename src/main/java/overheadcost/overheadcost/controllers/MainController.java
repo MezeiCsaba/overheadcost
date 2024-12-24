@@ -2,12 +2,14 @@ package overheadcost.overheadcost.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import overheadcost.overheadcost.entities.Electricity;
 import overheadcost.overheadcost.entities.GasModel;
 import overheadcost.overheadcost.entities.LastElectricityRead;
@@ -151,7 +153,7 @@ public class MainController {
         model.addAttribute("lastElectricity", electricityService.getLastElectricity(LocalDate.now()));
         model.addAttribute("newElectricity", new Electricity());
         model.addAttribute("newLastElectricity", new Electricity());
-        model.addAttribute("gasOverHead", gasService.getGasConsumptionLastYear());
+        model.addAttribute("gasOverHead", FloatToInt(gasService.getGasConsumptionLastYear()));
         model.addAttribute("gasDifChartDataList", gasService.getGasDifferenceChartData());
         model.addAttribute("lastGasRead", lastGasReadService.getLastGas(LocalDate.now()).getGas());
         model.addAttribute("lastGas", gasService.getLastGas(LocalDate.now()).getConsumption());
@@ -159,5 +161,13 @@ public class MainController {
         model.addAttribute("newLastGas", new LastGasModel());
         model.addAttribute("gasChartDataList", gasService.getGasChartData(isInfo));
         model.addAttribute("chartDataList", electricityService.getChartData(isInfo));
+    }
+
+    private int[] FloatToInt(float[] floatArray) {
+        int[] intArray = new int[floatArray.length];
+        for (int i = 0; i < floatArray.length; i++) {
+            intArray[i] = (int) floatArray[i]; // Explicit típuskonverzió
+        }
+        return intArray;
     }
 }
