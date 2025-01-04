@@ -121,17 +121,24 @@ public class ElectricityService {
         return isDayType ? (100 * sell / electricity.getSolar()) : electricity.getSolar();
     }
 
-    public Map<String, Integer> getYearlyData(int year) {
+    public Map<String, Integer> getLast12MonthsData() {
         Map<String, Integer> yearlyData = new LinkedHashMap<>();
+        var electricities = findAll();
+        if (electricities.isEmpty()) {
+            return yearlyData;
+        }
         int totalSold = 0;
         int totalBought = 0;
         int totalSolar = 0;
         int totalConsumption = 0;
 
-        var electricities = findAll();
+        LocalDate endDate = (electricities.get(electricities.size() - 1).getDate());
+        LocalDate startDate = endDate.minusMonths(11);
+
         for (int i = 0; i < electricities.size(); i++) {
             Electricity electricity = electricities.get(i);
-            if (electricity.getDate().getYear() == year) {
+            if (!electricity.getDate().isBefore(startDate) && !electricity.getDate().isAfter(endDate)) {
+                System.out.println(electricity.getDate());
                 Electricity currentElectricity = electricities.get(i);
                 Electricity previousElectricity = (i > 0) ? electricities.get(i - 1) : null;
 

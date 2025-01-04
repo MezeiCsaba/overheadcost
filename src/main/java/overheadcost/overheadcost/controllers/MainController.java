@@ -140,8 +140,7 @@ public class MainController {
 
     @RequestMapping("/yearlydata")
     public String yearlyData(Model model) {
-        var year = LocalDate.now().getYear();
-        model.addAttribute("yearlyData", electricityService.getYearlyData(year));
+        model.addAttribute("yearlyData", electricityService.getLast12MonthsData());
         setModel(model, false);
         return "yearlydata";
     }
