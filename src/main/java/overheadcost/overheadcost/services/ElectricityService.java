@@ -138,7 +138,6 @@ public class ElectricityService {
         for (int i = 0; i < electricities.size(); i++) {
             Electricity electricity = electricities.get(i);
             if (!electricity.getDate().isBefore(startDate) && !electricity.getDate().isAfter(endDate)) {
-                System.out.println(electricity.getDate());
                 Electricity currentElectricity = electricities.get(i);
                 Electricity previousElectricity = (i > 0) ? electricities.get(i - 1) : null;
 
